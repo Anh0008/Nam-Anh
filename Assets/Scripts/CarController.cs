@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
     public enum WheelType
@@ -16,17 +17,21 @@ public class CarController : MonoBehaviour
         public WheelCollider collider;
         public Transform transform;
     }
+
     [SerializeField] private List<Wheel> wheels = new List<Wheel>();
-    [SerializeField] private float speed = 50f;
+    [SerializeField] private float speed = 200f;
     [SerializeField] private float steerSpeed = 30f;
     [SerializeField] private float maxSteerAngle = 30f;
+    [SerializeField] private Vector3 centerOfMass;
 
     private float _moveInput;
     private float _steerInput;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        var rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = centerOfMass;
     }
 
     // Update is called once per frame
@@ -35,6 +40,7 @@ public class CarController : MonoBehaviour
         _moveInput = Input.GetAxis("Vertical");
         _steerInput = Input.GetAxis("Horizontal");
         WheelAnimation();
+        BrakeControl();
     }
 
     private void WheelAnimation()
@@ -46,6 +52,17 @@ public class CarController : MonoBehaviour
             wheel.collider.GetWorldPose(out pos, out rot);
             wheel.transform.position = pos;
             wheel.transform.rotation = rot;
+        }
+    }
+
+    private void BrakeControl()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            foreach (var wheel in wheels)
+            {
+                wheel.collider.brakeTorque = 1000;
+            }
         }
     }
 
