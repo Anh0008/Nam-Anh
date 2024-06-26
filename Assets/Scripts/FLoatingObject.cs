@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,31 +6,38 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class FloatingObject : MonoBehaviour
 {
-    [SerializeField] private float underWaterDrag;
-    [SerializeField] private float underWaterAngularDrag;
-    [SerializeField] private float airDrag;
-    [SerializeField] private float airAngularDrag;
-    [SerializeField] private float waterPower;
-    [SerializeField] private Transform[] floatPoints;
+    [SerializeField] private Transform[] floatingPoints;
+    [SerializeField] private float underWaterDrag = 3;
+    [SerializeField] private float underWaterAngularDrag = 1;
+    [SerializeField] private float airDrag = 0;
+    [SerializeField] private float airAngularDrag = 0.05f;
+    [SerializeField] private float floatPower = 5;
+
+    [SerializeField] private float waterHeight = 0;
 
     private Rigidbody _rb;
     private bool _isUnderWater;
+    
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }
+
     private void Update()
     {
-        foreach (var point in floatPoints)
+        int countUnderWaterPoint = 0 ;
+        foreach (var point in floatingPoints)
         {
-            int pointUnderWaterCount = 0;
-            var diff = point.position.y - 0;
+            float diff = point.position.y - OceanManager.Instance.GetWaveHeight(point.position);
+
             if (diff < 0)
             {
                 _rb.AddForceAtPosition(
-                    Vector3.up * waterPower * Mathf.Abs(diff),
+                    Vector3.up * floatPower * Mathf.Abs(diff),
                     point.position,
-                    ForceMode.Acceleration);
+                    ForceMode.Acceleration
+                );
+                countUnderWaterPoint++;
                 if (!_isUnderWater)
                 {
                     _isUnderWater = true;
@@ -37,8 +45,14 @@ public class FloatingObject : MonoBehaviour
                 }
             }
         }
-
+        
+        if (_isUnderWater && countUnderWaterPoint == 0)
+        {
+            _isUnderWater = false;
+            SetStage(false);
+        }
     }
+
     private void SetStage(bool underWater)
     {
         if (underWater)
