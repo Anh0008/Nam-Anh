@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class OceanManager : SingleTon<OceanManager>
 {
-
+    
     [SerializeField] private GameObject ocean;
     [SerializeField] private float wavePower = 2f;
 
@@ -31,7 +31,7 @@ public class OceanManager : SingleTon<OceanManager>
         {
             SetValue();
         }
-        _oceanMat.SetFloat("_wavePower", wavePower);
+        _oceanMat.SetFloat("_wavePower",wavePower);
     }
 
     public float GetWaveHeight(Vector3 point)

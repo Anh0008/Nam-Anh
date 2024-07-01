@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
@@ -16,34 +16,42 @@ public class ObjectPool : MonoBehaviour
             }
             return _instance;
         }
-
     }
-    private List<GameObject> _poolList = new List<GameObject>();
-    private Stack<GameObject> _poolStack = new Stack<GameObject>();
-    private Queue<GameObject> _poolQueue = new Queue<GameObject>();
+    
+    private List<GameObject> _poolList 
+        = new List<GameObject>();
+    
+    private Stack<GameObject> _poolStack 
+        = new Stack<GameObject>();
+    
+    private Queue<GameObject> _poolQueue 
+        = new Queue<GameObject>();
+    
     [SerializeField] private GameObject prefab;
     [SerializeField] private int poolSize = 10;
-    // Start is called before the first frame update
-    void Start()
+
+    
+    private void Start()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            var obj = Instantiate(prefab, transform);
+            var obj = 
+                Instantiate(prefab, transform);
             obj.SetActive(false);
-            obj.name = prefab.name + $"({i})";
+            obj.name = prefab.name + $" ({i})";
             _poolQueue.Enqueue(obj);
         }
     }
-    // Update is called once per frame
+    
     public bool CanSpawn()
     {
         return _poolQueue.Count > 0;
     }
+
     public GameObject PickOne(Transform parent)
     {
-        var obj=_poolQueue.Dequeue();
+        var obj = _poolQueue.Dequeue();
         obj.transform.SetParent(parent);
-        
         return obj;
     }
     
@@ -53,4 +61,6 @@ public class ObjectPool : MonoBehaviour
         obj.transform.SetParent(transform);
         _poolQueue.Enqueue(obj);
     }
+    
+    
 }

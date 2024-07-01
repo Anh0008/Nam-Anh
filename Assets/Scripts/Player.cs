@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using Mirror;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Player : NetworkBehaviour
 {
     [SerializeField] private float _force = 10f;
     private Rigidbody _rb;
@@ -10,38 +14,36 @@ public class Player : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        
+        if (! isLocalPlayer) return;
+        var cineMachine = FindObjectOfType<CinemachineVirtualCamera>();
+        cineMachine.Follow = transform;
+        cineMachine.LookAt = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            var force1 = Vector3.forward * _force;
-            var force = transform.forward * _force;
+            Vector3 force = transform.forward * _force;
             _rb.AddForce(force, ForceMode.VelocityChange);
         }
     }
-
+    
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag.Equals("obstacle"))
+        if (other.gameObject.tag.Equals("obstacle"))
         {
-            //Debug.Log("Player collided with" + other.gameObject.name);
-            //Debug.Log("Player collided with force" + other.impulse);
-            //Debug.Log("Player collided with relative velocity" + other.relativeVelocity);
-            //Debug.Log("Player collided with contact points" + other.contacts[0].point);
-            if(other.gameObject.tag.Equals("obstacle"))
-            {
-                Return(other.gameObject);
-            }
+            Return(other.gameObject);
         }
     }
-
+    
     private void Return(GameObject obj)
-    { 
+    {
         ObjectPool.Instance.ReturnOne(obj);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         other.gameObject.SetActive(false);

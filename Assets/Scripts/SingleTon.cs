@@ -9,12 +9,12 @@ namespace DefaultNamespace
         private static T _instance;
         public static T Instance => _instance;
         [SerializeField] private bool isDontDestroyOnload;
-
+            
         private void Awake()
         {
             if (_instance == null)
             {
-                _instance = (T)this;
+                _instance = (T) this; 
             }
             else
             {
