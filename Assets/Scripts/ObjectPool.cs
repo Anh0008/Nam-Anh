@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
@@ -16,7 +15,6 @@ public class ObjectPool : MonoBehaviour
             }
             return _instance;
         }
-
     }
     private List<GameObject> _poolList = new List<GameObject>();
     private Stack<GameObject> _poolStack = new Stack<GameObject>();
@@ -30,27 +28,31 @@ public class ObjectPool : MonoBehaviour
         {
             var obj = Instantiate(prefab, transform);
             obj.SetActive(false);
-            obj.name = prefab.name + $"({i})";
+            obj.name = prefab.name + $" ({i})";
             _poolQueue.Enqueue(obj);
+
         }
     }
-    // Update is called once per frame
     public bool CanSpawn()
     {
         return _poolQueue.Count > 0;
     }
     public GameObject PickOne(Transform parent)
     {
-        var obj=_poolQueue.Dequeue();
+        var obj = _poolQueue.Dequeue();
         obj.transform.SetParent(parent);
-        
         return obj;
     }
-    
     public void ReturnOne(GameObject obj)
     {
         obj.SetActive(false);
         obj.transform.SetParent(transform);
         _poolQueue.Enqueue(obj);
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }
