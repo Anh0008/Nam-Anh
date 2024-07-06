@@ -24,6 +24,7 @@ public class CarController : MonoBehaviour
     private float _moveInput;
     private float _steerInput;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,14 +37,14 @@ public class CarController : MonoBehaviour
         _moveInput = Input.GetAxis("Vertical");
         _steerInput = Input.GetAxis("Horizontal");
         WheelAnimation();
-        BrakeControll();
+        BrakeConTrol();
     }
     private void LateUpdate()
     {
         Move();
         Steer();
     }
-    private void BrakeControll()
+    private void BrakeConTrol()
     {
         if(Input.GetKey(KeyCode.Space))
         {
