@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
     public enum WheelType
@@ -10,8 +9,7 @@ public class CarController : MonoBehaviour
         Front,
         Rear
     }
-    [System.Serializable]
-    public struct Wheel
+    [System.Serializable] public struct Wheel
     {
         public WheelType type;
         public WheelCollider collider;
@@ -22,7 +20,6 @@ public class CarController : MonoBehaviour
     [SerializeField] private float speed = 200f;
     [SerializeField] private float steerSpeed = 30f;
     [SerializeField] private float maxSteerAngle = 30f;
-    [SerializeField] private Vector3 centerOfMass;
 
     private float _moveInput;
     private float _steerInput;
@@ -30,8 +27,7 @@ public class CarController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = centerOfMass;
+        
     }
 
     // Update is called once per frame
@@ -45,7 +41,7 @@ public class CarController : MonoBehaviour
 
     private void WheelAnimation()
     {
-        foreach (var wheel in wheels)
+        foreach(var wheel in wheels)
         {
             Vector3 pos;
             Quaternion rot;
@@ -57,21 +53,21 @@ public class CarController : MonoBehaviour
 
     private void BrakeControl()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space))
         {
-            foreach (var wheel in wheels)
+            foreach(var wheel in wheels)
             {
                 wheel.collider.brakeTorque = 1000;
             }
         }
     }
 
-    private void LateUpdate()
+    private void LateUpdate() 
     {
         Move();
         Steer();
     }
-
+    
     private void Move()
     {
         foreach (var wheel in wheels)
@@ -87,7 +83,7 @@ public class CarController : MonoBehaviour
             if (wheel.type == WheelType.Front)
             {
                 float steerAngle = _steerInput * maxSteerAngle * steerSpeed;
-                wheel.collider.steerAngle = Mathf.Lerp(wheel.collider.steerAngle, steerAngle, 0.5f);
+                wheel.collider.steerAngle = Mathf.Lerp(wheel.collider.steerAngle,steerAngle,0.5f);
             }
         }
     }
