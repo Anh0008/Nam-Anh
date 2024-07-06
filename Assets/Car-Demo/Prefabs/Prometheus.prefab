@@ -44,8 +44,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 261786959625234688}
-  - component: {fileID: 6647539378557823114}
-  - component: {fileID: 3956482510432893076}
+  - component: {fileID: 5719313929208305704}
+  - component: {fileID: 3951495113652251260}
   m_Layer: 0
   m_Name: Prometheus
   m_TagString: Untagged
@@ -71,7 +71,7 @@ Transform:
   - {fileID: 901333272}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6647539378557823114
+--- !u!114 &5719313929208305704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,26 +80,91 @@ MonoBehaviour:
   m_GameObject: {fileID: 642287924342879162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08dd2e25d0585494197dda48086ed1bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 004ba8f188f56453d92f690cd04f789e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wheels:
   - type: 0
-    collider: {fileID: 2029383045414099374}
+    collider: {fileID: 264133459358063998}
     transform: {fileID: 1276657636418845578}
   - type: 0
-    collider: {fileID: 8994033997918248006}
+    collider: {fileID: 6394981305805632572}
     transform: {fileID: 2897099083007925690}
   - type: 1
-    collider: {fileID: 1533041649073215662}
+    collider: {fileID: 4984333346351326195}
     transform: {fileID: 6528361102885328038}
   - type: 1
-    collider: {fileID: 1411136505914864948}
+    collider: {fileID: 1382666535608082093}
     transform: {fileID: 2699983780271061893}
-  speed: 200
+  speed: 120
   steerSpeed: 1
   maxSteerAngle: 35
---- !u!54 &3956482510432893076
+  input:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6835f542-4350-460d-a515-af69c3030584
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 3D Vector
+      m_Id: 0ff772e1-f9ab-4b4f-adb7-05417dd0e82f
+      m_Path: 3DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 88b054bd-6c0d-495a-ae1d-3b43b43e0d42
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 92bbc1f6-c5f2-4131-ac48-e1cabca23d39
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 86028ed5-30c2-43d9-b72b-d25214c69ca3
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: cafc785b-e989-4ee1-a87a-8b5211fd4921
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: forward
+      m_Id: b1408dae-195c-42ea-a234-f5b6f89d33bf
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    - m_Name: backward
+      m_Id: c1f7ca5d-353b-40d5-ad23-c2420c3dcf24
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input
+      m_Flags: 8
+    m_Flags: 0
+--- !u!54 &3951495113652251260
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,7 +318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5534550323598598708}
-  - component: {fileID: 1411136505914864948}
+  - component: {fileID: 1382666535608082093}
   m_Layer: 0
   m_Name: RearRightWheel
   m_TagString: Untagged
@@ -276,7 +341,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9035664824923732194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &1411136505914864948
+--- !u!146 &1382666535608082093
 WheelCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,7 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516980660217037521}
-  - component: {fileID: 8994033997918248006}
+  - component: {fileID: 6394981305805632572}
   m_Layer: 0
   m_Name: FrontRightWheel
   m_TagString: Untagged
@@ -347,7 +412,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9035664824923732194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &8994033997918248006
+--- !u!146 &6394981305805632572
 WheelCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2798787354462298965}
-  - component: {fileID: 2029383045414099374}
+  - component: {fileID: 264133459358063998}
   m_Layer: 0
   m_Name: FrontLeftWheel
   m_TagString: Untagged
@@ -418,7 +483,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9035664824923732194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &2029383045414099374
+--- !u!146 &264133459358063998
 WheelCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -750,7 +815,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2350058031404111781}
-  - component: {fileID: 1533041649073215662}
+  - component: {fileID: 4984333346351326195}
   m_Layer: 0
   m_Name: RearLeftWheel
   m_TagString: Untagged
@@ -773,7 +838,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9035664824923732194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!146 &1533041649073215662
+--- !u!146 &4984333346351326195
 WheelCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
